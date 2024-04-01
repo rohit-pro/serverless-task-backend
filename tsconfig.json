@@ -9,6 +9,8 @@
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "composite": true,
+    "types": ["jest", "node"]
   },
   "references": [  { "path": "./product" } ],
+  "exclude": ["**/__tests__"]
 }
