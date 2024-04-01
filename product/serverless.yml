@@ -22,3 +22,6 @@ functions:
       - httpApi:
           path: /products/{productId}
           method: get
+
+plugins:
+  - serverless-auto-swagger
