@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "noImplicitAny": false,
+    "module": "CommonJS",
+    "target": "ES2015",
+    "allowJs": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "composite": true,
+  },
+  "references": [  { "path": "./product" } ],
+}
