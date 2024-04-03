@@ -1,0 +1,32 @@
+service: product
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  httpApi:
+    cors: true # <-- CORS!
+  stage: dev
+  region: ap-south-1
+
+functions:
+  getProductsList:
+    handler: dist/src/handler.getProductsList
+    events:
+      - httpApi:
+          path: /products
+          method: get
+  getProductsById:
+    handler: dist/src/handler.getProductsById
+    events:
+      - httpApi:
+          path: /products/{productId}
+          method: get
+  createProduct:
+    handler: dist/src/handler.createProduct
+    events:
+      - httpApi:
+          path: /products
+          method: post
+plugins:
+  - serverless-auto-swagger
