@@ -1,5 +1,4 @@
 export type Product = {
-    count: number,
     description: string,
     id: string,
     price: number,
@@ -9,4 +8,9 @@ export type Product = {
 export type Response = {
     statusCode: number,
     body: string
+}
+
+export type Stock = {
+    product_id: string,
+    count: number
 }
