@@ -1,0 +1,36 @@
+service: import-service
+provider:
+  name: aws
+  stage: dev
+  runtime: nodejs18.x
+  region: ap-south-1
+  httpApi:
+    cors: true
+functions:
+  importProductsFile:
+    handler: dist/src/handler.importProductsFile
+    events:
+      - httpApi:
+          path: /import/{fileName}
+          method: get
+  importFileParser:
+    handler: dist/src/handler.importFileParser
+    events:
+      - s3:
+          bucket: aws-task-5
+          event: s3:ObjectCreated:*
+          rules:
+            - prefix: uploaded/
+          existing: true
+
+iamRoleStatements:
+  - Effect: "Allow"
+    Action:
+      - "s3:ListBucket"
+    Resource:
+      - "arn:aws:s3:::aws-task-5"
+  - Effect: "Allow"
+    Action:
+      - "s3:*"
+    Resource:
+      - "arn:aws:s3:::aws-task-5/*"

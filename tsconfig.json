@@ -11,6 +11,6 @@
     "composite": true,
     "types": ["jest", "node"]
   },
-  "references": [  { "path": "./product" } ],
-  "exclude": ["**/__tests__"]
+  "references": [  { "path": "./product" }, { "path": "./import-service" } ],
+  "exclude": ["**/__tests__"],
 }

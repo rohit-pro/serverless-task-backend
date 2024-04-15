@@ -1,0 +1,22 @@
+{
+    "Records": [
+      {
+        "eventVersion": "2.1",
+        "eventSource": "aws:s3",
+        "awsRegion": "ap-south-1",
+        "eventTime": "2024-04-12T14:41:41.247Z",
+        "eventName": "ObjectCreated:Put",
+        "userIdentity": {},
+        "requestParameters": {},
+        "responseElements": {},
+        "s3": {
+          "bucket": {
+            "name": "aws-task-5"
+          },
+          "object": {
+            "key": "uploaded/data.csv"
+          }
+        }
+      }
+    ]
+  }
