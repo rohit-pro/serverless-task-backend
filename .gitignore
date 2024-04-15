@@ -1,0 +1,5 @@
+/node_modules
+/product/.serverless
+/product/src/aws
+/import-service/node_modules
+/import-service/.serverless
