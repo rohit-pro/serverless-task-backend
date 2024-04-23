@@ -1,4 +1,4 @@
-import { putItem, queryItems, scanItems } from "./aws-service";
+import { publishToSns, putItem, queryItems, scanItems } from "./aws-service";
 import { CONFIG } from "./config";
 import { Product, Response, Stock } from "./model";
 import { v4 as uuid } from 'uuid';
@@ -100,6 +100,28 @@ export const ProductService = {
             error["count"] = "count should be 0 or grater than 0";
         }
         return error;
+    },
+
+    catalogBatchProcess: async (event: any) => {
+        console.log("Request => ", event);
+        const records = event.Records;
+        for (const record of records) {
+            const products = JSON.parse(record.body);
+            for (const product of products) {
+                product.price =  +product.price;
+                product.count = +product.count;
+                const error = ProductService.validatePayload(product.title, product.description, product.price, product.count);
+                if (Object.keys(error).length)
+                   console.log(error); 
+                else {
+                    product.id = uuid();
+                    await putItem(CONFIG.PRODUCT_TABLE, product)
+                    await putItem(CONFIG.STOCK_TABLE, { product_id: product.id, count: product.count })
+                }
+            }
+          }
+        await publishToSns();
+        return handleSuccess({});
     }
 
 

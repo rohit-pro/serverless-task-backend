@@ -8,6 +8,7 @@ AWS.config.update({
 });
 
 const dynamo = new AWS.DynamoDB.DocumentClient();
+const sns = new AWS.SNS();
 
 export const scanItems = async (tableName: string) => {
     const scan = await dynamo.scan({
@@ -28,4 +29,15 @@ export const putItem = async (tableName: string, item: Record<string, any>) => {
         Item: item
     }).promise()
     return put
+}
+
+
+export const publishToSns = async () => {
+    const params = {
+        Message: 'New products have been created.',
+        Subject: 'New Products Created',
+        TopicArn: 'arn:aws:sns:ap-south-1:497495265864:createProductTopic' // Replace with your SNS topic ARN
+      };
+    
+      await sns.publish(params).promise();
 }
