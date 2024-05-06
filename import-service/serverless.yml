@@ -6,6 +6,13 @@ provider:
   region: ap-south-1
   httpApi:
     cors: true
+    authorizers:
+      basicAuthorizers:
+        type: request
+        identitySource:
+          - $request.header.Authorization
+        functionArn: arn:aws:lambda:ap-south-1:497495265864:function:authorization-service-dev-basicAuthorizer
+
 functions:
   importProductsFile:
     handler: dist/src/handler.importProductsFile
@@ -13,6 +20,9 @@ functions:
       - httpApi:
           path: /import/{fileName}
           method: get
+          authorizer: 
+            name: 'basicAuthorizers'
+
   importFileParser:
     handler: dist/src/handler.importFileParser
     events:
@@ -42,4 +52,4 @@ iamRoleStatements:
       - sqs:SendMessage
     Resource: 
       - arn:aws:sqs:ap-south-1:497495265864:catalogItemsQueue
-  
+  - Effect: Allow

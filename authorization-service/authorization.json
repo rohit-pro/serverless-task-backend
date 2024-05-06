@@ -1,0 +1,44 @@
+{
+  "version": "2.0",
+  "type": "REQUEST",
+  "routeArn": "arn:aws:execute-api:ap-south-1:497495265864:iyni7g6gq5/$default/GET/import/test.csv",
+  "identitySource": ["Basic b3NoeW5rYXJlbmtvPVRFU1RfUEFTU1dPUkQ="],
+  "routeKey": "GET /import/{fileName}",
+  "rawPath": "/import/test.csv",
+  "rawQueryString": "",
+  "headers": {
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate, br",
+    "authorization": "Basic b3NoeW5rYXJlbmtvPVRFU1RfUEFTU1dPUkQ=",
+    "content-length": "876",
+    "content-type": "multipart/form-data; boundary=--------------------------558316231164432355460567",
+    "host": "iyni7g6gq5.execute-api.ap-south-1.amazonaws.com",
+    "postman-token": "609e8fd2-7d73-4bb2-9eaf-caef68f120d4",
+    "user-agent": "PostmanRuntime/7.37.3",
+    "x-amzn-trace-id": "Root=1-66336bc9-6d26b225440f227a0342ec3a",
+    "x-forwarded-for": "49.37.36.38",
+    "x-forwarded-port": "443",
+    "x-forwarded-proto": "https"
+  },
+  "requestContext": {
+    "accountId": "497495265864",
+    "apiId": "iyni7g6gq5",
+    "domainName": "iyni7g6gq5.execute-api.ap-south-1.amazonaws.com",
+    "domainPrefix": "iyni7g6gq5",
+    "http": {
+      "method": "GET",
+      "path": "/import/test.csv",
+      "protocol": "HTTP/1.1",
+      "sourceIp": "49.37.36.38",
+      "userAgent": "PostmanRuntime/7.37.3"
+    },
+    "requestId": "XI3Hfg6PBcwEMnA=",
+    "routeKey": "GET /import/{fileName}",
+    "stage": "$default",
+    "time": "02/May/2024:10:32:41 +0000",
+    "timeEpoch": 1714645961297
+  },
+  "pathParameters": {
+    "fileName": "test.csv"
+  }
+}
