@@ -36,3 +36,12 @@ functions:
           batchSize: 5
 plugins:
   - serverless-auto-swagger
+resources:
+  Resources:
+    createProductTopic:
+      Type: AWS::SNS::Topic
+      Properties:
+        TopicName: createProductTopic
+        Subscription:
+          - Protocol: email
+            Endpoint: rohitbhagattgh@gmail.com
