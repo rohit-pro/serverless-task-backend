@@ -21,6 +21,7 @@ const s3 = new AWS.S3({
     region,
 });
 
+const sqs = new AWS.SQS();
 
 const bucketName = CONFIG.BUCKET;
 export const putObject = (fileName: string, fileData: Buffer) => {
@@ -64,3 +65,11 @@ export const getObject = async (params: {
     }
 
 }
+
+export const sendMessageToSQS = async (queueUrl:string, message:any) => {
+    const params = {
+      MessageBody: message,
+      QueueUrl: queueUrl
+    };
+    await sqs.sendMessage(params).promise();
+  }

@@ -1,6 +1,5 @@
-import csvParser from "csv-parser";
-import { getObject, getSignedUrl, moveObject, putObject } from "./aws-service";
-import { Product, Response, Stock } from "./model";
+import { getObject, getSignedUrl, moveObject, putObject, sendMessageToSQS } from "./aws-service";
+import { Response } from "./model";
 
 const handleError = (error, statusCode = 500) => {
     console.log("ERROR:->", error);
@@ -41,7 +40,19 @@ export const ImportService = {
                 Bucket: bucket,
                 Key: key,
             };
+            const queueUrl = process.env.SQS_QUEUE_URL;
+            
             const doc = await getObject(params);
+
+            const products = [];
+            for (const x of doc) {
+                const [count, description, id, price, title] = Object.values(x);
+                if(count && description && id && price && title && count !== 'count'){
+                    products.push({count, description, id, price, title})
+                }
+            }
+            const message = JSON.stringify(products);
+            await sendMessageToSQS(queueUrl, message)
             await moveObject(key)
             return handleSuccess(doc);
         } catch (error) {

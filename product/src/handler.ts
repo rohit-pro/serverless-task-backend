@@ -12,3 +12,7 @@ export const getProductsById = async (event: any) => {
 export const createProduct = async (event: any) => {
     return await ProductService.createProduct(event)
 }
+
+export const catalogBatchProcess = async(event:any) => {
+    return await ProductService.catalogBatchProcess(event)
+}

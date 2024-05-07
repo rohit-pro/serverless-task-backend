@@ -28,5 +28,20 @@ functions:
       - httpApi:
           path: /products
           method: post
+  catalogBatchProcess:
+    handler:  dist/src/handler.catalogBatchProcess
+    events:
+      - sqs:
+          arn: arn:aws:sqs:ap-south-1:497495265864:catalogItemsQueue
+          batchSize: 5
 plugins:
   - serverless-auto-swagger
+resources:
+  Resources:
+    createProductTopic:
+      Type: AWS::SNS::Topic
+      Properties:
+        TopicName: createProductTopic
+        Subscription:
+          - Protocol: email
+            Endpoint: rohitbhagattgh@gmail.com

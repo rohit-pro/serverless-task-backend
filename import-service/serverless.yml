@@ -22,6 +22,9 @@ functions:
           rules:
             - prefix: uploaded/
           existing: true
+    environment:
+      SQS_QUEUE_URL: https://sqs.ap-south-1.amazonaws.com/497495265864/catalogItemsQueue
+
 
 iamRoleStatements:
   - Effect: "Allow"
@@ -34,3 +37,9 @@ iamRoleStatements:
       - "s3:*"
     Resource:
       - "arn:aws:s3:::aws-task-5/*"
+  - Effect: Allow
+    Action:
+      - sqs:SendMessage
+    Resource: 
+      - arn:aws:sqs:ap-south-1:497495265864:catalogItemsQueue
+  

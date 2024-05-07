@@ -10,7 +10,6 @@ module.exports = {
                     results.push(data);
                 })
                 .on('end', () => {
-                    console.log(results);
                     res(results)
                 })
                 .on('error', (error) => {

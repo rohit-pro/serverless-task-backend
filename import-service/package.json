@@ -13,5 +13,8 @@
     "aws-sdk": "^2.1598.0",
     "csv-parser": "^3.0.0",
     "stream": "^0.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.7"
   }
 }
