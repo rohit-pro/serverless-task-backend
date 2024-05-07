@@ -23,14 +23,17 @@ const basicAuthorizer: APIGatewayRequestIAMAuthorizerHandlerV2 = (event, _, call
     }
     try {
         console.log("event ==>", event);
-        const { headers: { authorization }, routeArn } = event;
-        const token = authorization.split(' ')[1];
-        const decodedToken = atob(token);
-        const [userName, password] = decodedToken.split("=")
-        console.log(`Username: ${userName}; Password: ${password}`);
         let effect: "Deny" | "Allow" = 'Deny'
-        if (password === process.env[userName]) {
-            effect = 'Allow';
+        let token = '';
+        const { headers: { authorization }, routeArn } = event;
+        if(authorization.includes(' ')){
+          token = authorization.split(' ')[1];
+          const decodedToken = atob(token);
+          const [userName, password] = decodedToken.split("=")
+          console.log(`Username: ${userName}; Password: ${password}`);
+          if (password === process.env[userName] && password) {
+              effect = 'Allow';
+          }
         }
         const policy = generatePolicy(token, effect, routeArn);
         console.log(`Policy: ${JSON.stringify(policy)}`);
