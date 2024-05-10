@@ -1,4 +1,4 @@
-import { getObject, getSignedUrl, moveObject, putObject, sendMessageToSQS } from "./aws-service";
+import {  getObject, getSignedUrl, getSignedUrlByCommand, moveObject, putObject, sendMessageToSQS } from "./aws-service";
 import { Response } from "./model";
 
 const handleError = (error, statusCode = 500) => {
@@ -21,10 +21,15 @@ export const ImportService = {
         try {
             console.log("Request => ", event);
             const fileName = event.pathParameters["fileName"];
-            const requestBody = event.body;
-            const fileData = Buffer.from(requestBody, 'base64')
-            await putObject(fileName, fileData)
-            const signedUrl = getSignedUrl(fileName)
+            let signedUrl;
+            if(event.body) {
+                const requestBody = event.body;
+                const fileData = Buffer.from(requestBody, 'base64')
+                await putObject(fileName, fileData)
+                signedUrl = getSignedUrl(fileName)
+            } else {
+                signedUrl = await getSignedUrlByCommand(fileName);
+            }
             return handleSuccess({ signedUrl });
         } catch (error) {
             return handleError(error)

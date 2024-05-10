@@ -1,5 +1,6 @@
 import * as AWS from 'aws-sdk';
-import { S3Client } from '@aws-sdk/client-s3';
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import { getSignedUrl as getSignedUrlPresigner } from '@aws-sdk/s3-request-presigner';
 
 import { CONFIG } from './config';
 import { getParsed } from './csv-parser';
@@ -72,4 +73,13 @@ export const sendMessageToSQS = async (queueUrl:string, message:any) => {
       QueueUrl: queueUrl
     };
     await sqs.sendMessage(params).promise();
-  }
+}
+
+export const getSignedUrlByCommand = async (fieName: string) => {
+    const command  = new PutObjectCommand({
+        Bucket: bucketName,
+        Key: fieName
+    }); 
+    const signedUrl = await getSignedUrlPresigner(client, command, { expiresIn: 3600 });
+    return signedUrl
+}
