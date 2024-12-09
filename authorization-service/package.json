@@ -1,5 +1,5 @@
 {
-  "name": "import-service",
+  "name": "authorization-service",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,13 +9,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.554.0",
-    "@aws-sdk/s3-request-presigner": "^3.572.0",
-    "aws-sdk": "^2.1598.0",
-    "csv-parser": "^3.0.0",
-    "stream": "^0.0.2"
+    "aws-lambda": "^1.0.7",
+    "dotenv": "^16.4.5",
+    "jsonwebtoken": "^9.0.2",
+    "serverless-dotenv-plugin": "^6.0.0"
   },
   "devDependencies": {
-    "@types/node": "^20.12.7"
+    "@types/aws-lambda": "^8.10.137",
+    "@types/jsonwebtoken": "^9.0.6"
   }
 }
